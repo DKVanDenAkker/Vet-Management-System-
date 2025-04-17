@@ -1,44 +1,47 @@
-//ผู้ปกครอง
-// Base class for all animals in the vet management system
-
-public class Animal {
+public abstract class Animal {
     protected String name;
     protected int age;
-    protected String species;   // Mammal, Fish, Reptile
-    protected String type;      // Dog, Cat, Goldfish
-    protected String condition; // "Fever", "Needs surgery"
+    protected String type;      // e.g., Dog, Cat, Goldfish
+    protected String condition;
     protected String owner;
+    protected boolean needsAppointment;
+    protected String appointmentDate;
 
     // Constructor
-    public Animal(String name, int age, String species, String type, String condition, String owner) {
+    public Animal(String name, int age, String type, String condition, String owner, boolean needsAppointment, String appointmentDate) {
         this.name = name;
         this.age = age;
-        this.species = species;
         this.type = type;
         this.condition = condition;
         this.owner = owner;
+        this.needsAppointment = needsAppointment;
+        this.appointmentDate = appointmentDate;
     }
 
-    // Display animal details
-    public void displayInfo() {
-        System.out.println("Name: " + name +
-                           "\nAge: " + age +
-                           "\nSpecies: " + species +
-                           "\nType: " + type +
-                           "\nCondition: " + condition +
-                           "\nOwner: " + owner);
+    // Old constructor (for backward compatibility if needed)
+    public Animal(String name, int age, String type, String condition, String owner) {
+        this(name, age, type, condition, owner, false, "");
     }
+
+    // Display info
+    public abstract void displayInfo();
+
+    // Export for saving
+    public String toFileString() {
+        return getSpecies() + "," + name + "," + age + "," + type + "," + condition + "," + owner + "," + needsAppointment + "," + appointmentDate;
+    }
+
+    // Helper
+    public abstract String getSpecies();
 
     // Getters
     public String getName() { return name; }
     public int getAge() { return age; }
-    public String getSpecies() { return species; }
     public String getType() { return type; }
     public String getCondition() { return condition; }
     public String getOwner() { return owner; }
 
-    // Convert to a string format for file saving
-    public String toFileString() {
-        return name + "," + age + "," + species + "," + type + "," + condition + "," + owner;
-    }
+    // New appointment-related methods
+    public boolean hasAppointment() { return needsAppointment; }
+    public String getAppointmentDate() { return appointmentDate; }
 }
