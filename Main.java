@@ -2,9 +2,11 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 
+//Declare a variable animalList that is an ArrayList to store the animals the user adds.
 public class Main {
     static ArrayList<Animal> animalList = new ArrayList<>();
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+    
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -19,11 +21,11 @@ public class Main {
             System.out.println("5. Load from File");
             System.out.println("6. Exit");
             System.out.print("Select: ");
-
+            
+            //Used in cases where you want to catch an error (Exception)
             try {
-                int choice = scanner.nextInt();
+                int choice = scanner.nextInt(); ////Read the user-entered data (numbers selected in the menu)
                 scanner.nextLine(); // clear buffer
-
                 switch (choice) {
                     case 1 -> addAnimal(scanner);
                     case 2 -> showAnimals();
@@ -34,9 +36,10 @@ public class Main {
                         System.out.println("Goodbye!");
                         running = false;
                     }
-                    default -> System.out.println("Invalid option.");
+                    default -> System.out.println("Invalid option."); //If the user enters an invalid value, a warning message is printed.
                 }
-
+                
+              //Catch errors caused by incorrect data entry (entering letters instead of numbers)
             } catch (InputMismatchException e) {
                 System.out.println("Please enter a valid number.");
                 scanner.nextLine(); // clear buffer
@@ -46,6 +49,7 @@ public class Main {
         scanner.close();
     }
 
+    //A loop that runs until a new animal is added.
     public static void addAnimal(Scanner scanner) {
         Animal newAnimal = null;
 
@@ -253,6 +257,7 @@ public class Main {
                     boolean needsAppointment = Boolean.parseBoolean(data[6]);
                     String appointmentDate = data[7];
 
+                    //To check the type of animal
                     Animal a = switch (species) {
                         case "Mammal" -> new Mammal(name, age, type, condition, owner, needsAppointment, appointmentDate);
                         case "Fish" -> new Fish(name, age, type, condition, owner, needsAppointment, appointmentDate);
@@ -262,15 +267,18 @@ public class Main {
                     };
 
                     if (a != null) {
-                        animalList.add(a);
+                        animalList.add(a); //To store animal data loaded from a file
                     }
                 }
             }
-            System.out.println("Loaded animals from file.");
+            System.out.println("Loaded animals from file."); 
+            //Will be displayed to inform the user that the data loading from the file is complete.
         } catch (IOException e) {
-            System.out.println("Load error: " + e.getMessage());
+            System.out.println("Load error: " + e.getMessage()); 
+            //Catch errors that may occur during file reading, such as file not found or file opening error.
         } catch (NumberFormatException e) {
             System.out.println("File format error.");
+            //Catch errors caused by conversion of non-numeric data (e.g. when trying to convert string data to a number but failing to convert)
         }
     }
 }
