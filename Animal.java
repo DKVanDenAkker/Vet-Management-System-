@@ -7,7 +7,7 @@ public abstract class Animal {
     protected boolean needsAppointment;
     protected String appointmentDate;
 
-    // Constructor
+    // These are the animal’s attributes: name, age, species type (e.g., Dog, Cat), condition, owner, and appointment status.
     public Animal(String name, int age, String type, String condition, String owner, boolean needsAppointment, String appointmentDate) {
         this.name = name;
         this.age = age;
@@ -18,15 +18,15 @@ public abstract class Animal {
         this.appointmentDate = appointmentDate;
     }
 
-    // Old constructor (for backward compatibility if needed)
+    // the second one sets a default value when no appointment is scheduled.
     public Animal(String name, int age, String type, String condition, String owner) {
         this(name, age, type, condition, owner, false, "");
     }
 
-    // Display info
+    // Abstract method that each subclass (e.g., Amphibian) must implement to display the animal’s info.
     public abstract void displayInfo();
 
-    // Export for saving
+    // This method converts the animal’s details to a CSV-like string format for saving/exporting to a file.
     public String toFileString() {
         return getSpecies() + "," + name + "," + age + "," + type + "," + condition + "," + owner + "," + needsAppointment + "," + appointmentDate;
     }
