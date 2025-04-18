@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-
+    // Show menu system
         while (running) {
             System.out.println("\n--- Vet Management System ---");
             System.out.println("1. Add Animal");
@@ -74,7 +74,7 @@ public class Main {
                 }
             }
 
-            // Proceeding with type, name, and other details
+            //scan the detail
             String type = getValidStringInput(scanner, "Enter type (e.g. Dog, Cat): ");
             String name = getValidStringInput(scanner, "Enter name: ");
             int age = getValidIntInput(scanner, "Enter age: ");
@@ -87,7 +87,7 @@ public class Main {
                 appointmentDate = getValidAppointmentDate(scanner); // Use the new method for date validation
             }
 
-            // Creating the appropriate animal object based on species choice
+            // Create animal object
             switch (speciesChoice) {
                 case 1 -> newAnimal = new Mammal(name, age, type, condition, owner, needsAppointment, appointmentDate);
                 case 2 -> newAnimal = new Fish(name, age, type, condition, owner, needsAppointment, appointmentDate);
@@ -104,7 +104,7 @@ public class Main {
         }
     }
 
-    // Helper method to get a valid appointment date
+    // get a valid appointment date
     private static String getValidAppointmentDate(Scanner scanner) {
         String appointmentDate = "";
         boolean valid = false;
@@ -117,10 +117,10 @@ public class Main {
             } else {
                 try {
                     // Check the date format
-                    dateFormat.setLenient(false); // Disable lenient parsing
-                    dateFormat.parse(appointmentDate); // This will throw an exception if the date is invalid
+                    dateFormat.setLenient(false); 
+                    dateFormat.parse(appointmentDate); 
 
-                    // Now, let's validate the date using Calendar to make sure it is a valid day of the month
+                    //validate the date using Calendar
                     String[] dateParts = appointmentDate.split("-");
                     int year = Integer.parseInt(dateParts[0]);
                     int month = Integer.parseInt(dateParts[1]);
@@ -128,11 +128,11 @@ public class Main {
 
                     // Using Calendar to validate day/month/year
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(year, month - 1, day); // Set calendar to the input date
+                    calendar.set(year, month - 1, day); // inout date
                     if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == (month - 1) && calendar.get(Calendar.DAY_OF_MONTH) == day) {
                         valid = true; // The date is valid
                     } else {
-                        System.out.println("Invalid date! The day is out of range for the given month. Please try again.");
+                        System.out.println("Invalid date! The day is out of range for the given month. Please try again.");    
                     }
 
                 } catch (ParseException e) {
@@ -145,7 +145,7 @@ public class Main {
         return appointmentDate;
     }
 
-    // Helper method to ensure a valid string input
+    // ensure a valid string input
     private static String getValidStringInput(Scanner scanner, String prompt) {
         String input = "";
         boolean valid = false;
@@ -161,7 +161,7 @@ public class Main {
         return input;
     }
 
-    // Helper method to ensure a valid integer input
+    //ensure a valid integer input
     private static int getValidIntInput(Scanner scanner, String prompt) {
         int input = -1;
         boolean valid = false;
@@ -183,7 +183,7 @@ public class Main {
         return input;
     }
 
-    // Helper method to ensure a valid boolean input
+    // ensure a valid boolean input
     private static boolean getValidBoolInput(Scanner scanner, String prompt) {
         boolean input = false;
         boolean valid = false;
